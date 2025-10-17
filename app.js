@@ -24,7 +24,6 @@ const playBtn = document.getElementById('playBtn');
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
 const shuffleBtn = document.getElementById('shuffleBtn');
-const volumeSlider = document.getElementById('volumeSlider');
 const trackTitle = document.getElementById('trackTitle');
 const trackArtist = document.getElementById('trackArtist');
 const quoteElement = document.getElementById('motivationalQuote');
@@ -89,18 +88,17 @@ function togglePlay() {
     if (!audioPlayer) return;
     
     isPlaying = !isPlaying;
-    playBtn.textContent = isPlaying ? '⏸' : '▶';
+    const playIcon = playBtn.querySelector('span');
+    playIcon.textContent = isPlaying ? '⏸' : '▶';
     
     if (isPlaying) {
         audioPlayer.play().catch(err => {
             console.log('Audio play failed:', err);
             isPlaying = false;
-            playBtn.textContent = '▶';
+            playIcon.textContent = '▶';
         });
-        playBtn.style.transform = 'scale(1.1)';
     } else {
         audioPlayer.pause();
-        playBtn.style.transform = 'scale(1)';
     }
 }
 
@@ -120,14 +118,7 @@ function prevTrack() {
 
 function toggleShuffle() {
     isShuffleOn = !isShuffleOn;
-    shuffleBtn.style.background = isShuffleOn ? 'rgba(255, 102, 0, 0.4)' : 'rgba(255, 102, 0, 0.2)';
-    shuffleBtn.style.transform = isShuffleOn ? 'scale(1.1)' : 'scale(1)';
-}
-
-function updateVolume() {
-    if (audioPlayer) {
-        audioPlayer.volume = volumeSlider.value / 100;
-    }
+    shuffleBtn.style.background = isShuffleOn ? 'rgba(255, 102, 0, 0.3)' : 'rgba(255, 102, 0, 0.1)';
 }
 
 function changeQuote() {
@@ -144,7 +135,6 @@ playBtn.addEventListener('click', togglePlay);
 nextBtn.addEventListener('click', nextTrack);
 prevBtn.addEventListener('click', prevTrack);
 shuffleBtn.addEventListener('click', toggleShuffle);
-volumeSlider.addEventListener('input', updateVolume);
 
 // Initialize music player
 document.addEventListener('DOMContentLoaded', () => {
