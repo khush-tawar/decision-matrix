@@ -6,92 +6,106 @@
     <title>Priority Matrix</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="background-pattern"></div>
+    
     <div class="container">
         <!-- Header -->
         <header>
             <h1>Priority Matrix</h1>
+            <p class="subtitle">Organize your tasks with clarity</p>
         </header>
 
-        <!-- Input Area -->
-        <section class="input-area">
-            <input 
-                type="text" 
-                id="taskInput" 
-                placeholder="Enter a new task..." 
-                class="task-input"
-            >
-            <div class="scoring-inputs">
-                <div class="score-group">
-                    <label for="urgencyInput">Urgency</label>
-                    <input 
-                        type="number" 
-                        id="urgencyInput" 
-                        min="1" 
-                        max="10" 
-                        value="5"
-                        class="score-input"
-                    >
-                </div>
-                <div class="score-group">
-                    <label for="importanceInput">Importance</label>
-                    <input 
-                        type="number" 
-                        id="importanceInput" 
-                        min="1" 
-                        max="10" 
-                        value="5"
-                        class="score-input"
-                    >
+        <!-- Main Layout -->
+        <div class="main-layout">
+            <!-- Left Side: Matrix -->
+            <div class="left-panel">
+                <div class="panel-card">
+                    <h2>Eisenhower Matrix</h2>
+                    <div class="matrix-grid">
+                        <div class="quadrant q1" data-quadrant="1">
+                            <div class="quadrant-header">
+                                <h3>Do First</h3>
+                                <p>Urgent & Important</p>
+                            </div>
+                            <div class="quadrant-tasks" id="q1-tasks" data-quadrant="1"></div>
+                        </div>
+                        <div class="quadrant q2" data-quadrant="2">
+                            <div class="quadrant-header">
+                                <h3>Schedule</h3>
+                                <p>Not Urgent & Important</p>
+                            </div>
+                            <div class="quadrant-tasks" id="q2-tasks" data-quadrant="2"></div>
+                        </div>
+                        <div class="quadrant q3" data-quadrant="3">
+                            <div class="quadrant-header">
+                                <h3>Delegate</h3>
+                                <p>Urgent & Not Important</p>
+                            </div>
+                            <div class="quadrant-tasks" id="q3-tasks" data-quadrant="3"></div>
+                        </div>
+                        <div class="quadrant q4" data-quadrant="4">
+                            <div class="quadrant-header">
+                                <h3>Eliminate</h3>
+                                <p>Not Urgent & Not Important</p>
+                            </div>
+                            <div class="quadrant-tasks" id="q4-tasks" data-quadrant="4"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <button id="addTaskBtn" class="add-task-btn" disabled>Add Task</button>
-        </section>
 
-        <!-- Eisenhower Matrix -->
-        <section class="matrix-section">
-            <h2>Eisenhower Matrix</h2>
-            <div class="matrix-grid">
-                <div class="quadrant q1" data-quadrant="1">
-                    <div class="quadrant-header">
-                        <h3>Do</h3>
-                        <p>Urgent & Important</p>
+            <!-- Right Side: Input & Task List -->
+            <div class="right-panel">
+                <!-- Input Area -->
+                <div class="panel-card input-card">
+                    <h2>Add New Task</h2>
+                    <input 
+                        type="text" 
+                        id="taskInput" 
+                        placeholder="Enter a new task..." 
+                        class="task-input"
+                    >
+                    <div class="scoring-inputs">
+                        <div class="score-group">
+                            <label for="urgencyInput">Urgency</label>
+                            <input 
+                                type="number" 
+                                id="urgencyInput" 
+                                min="1" 
+                                max="10" 
+                                value="5"
+                                class="score-input"
+                            >
+                        </div>
+                        <div class="score-group">
+                            <label for="importanceInput">Importance</label>
+                            <input 
+                                type="number" 
+                                id="importanceInput" 
+                                min="1" 
+                                max="10" 
+                                value="5"
+                                class="score-input"
+                            >
+                        </div>
                     </div>
-                    <div class="quadrant-tasks" id="q1-tasks"></div>
+                    <button id="addTaskBtn" class="add-task-btn" disabled>
+                        <span>+</span> Add Task
+                    </button>
                 </div>
-                <div class="quadrant q2" data-quadrant="2">
-                    <div class="quadrant-header">
-                        <h3>Decide</h3>
-                        <p>Not Urgent & Important</p>
-                    </div>
-                    <div class="quadrant-tasks" id="q2-tasks"></div>
-                </div>
-                <div class="quadrant q3" data-quadrant="3">
-                    <div class="quadrant-header">
-                        <h3>Delegate</h3>
-                        <p>Urgent & Not Important</p>
-                    </div>
-                    <div class="quadrant-tasks" id="q3-tasks"></div>
-                </div>
-                <div class="quadrant q4" data-quadrant="4">
-                    <div class="quadrant-header">
-                        <h3>Delete</h3>
-                        <p>Not Urgent & Not Important</p>
-                    </div>
-                    <div class="quadrant-tasks" id="q4-tasks"></div>
+
+                <!-- Task List -->
+                <div class="panel-card task-list-card">
+                    <h2>All Tasks</h2>
+                    <ul id="taskList" class="task-list"></ul>
+                    <button id="clearCompletedBtn" class="clear-btn">Clear Completed</button>
                 </div>
             </div>
-        </section>
-
-        <!-- Task List -->
-        <section class="task-list-section">
-            <h2>Priority Task List</h2>
-            <ul id="taskList" class="task-list"></ul>
-            <button id="clearCompletedBtn" class="clear-btn">Clear Completed Tasks</button>
-        </section>
+        </div>
     </div>
 
     <script src="app.js"></script>

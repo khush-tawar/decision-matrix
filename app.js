@@ -1,5 +1,6 @@
 // Task data storage
 let tasks = [];
+let draggedTask = null;
 
 // DOM Elements
 const taskInput = document.getElementById('taskInput');
@@ -14,6 +15,9 @@ const q1Tasks = document.getElementById('q1-tasks');
 const q2Tasks = document.getElementById('q2-tasks');
 const q3Tasks = document.getElementById('q3-tasks');
 const q4Tasks = document.getElementById('q4-tasks');
+
+// All quadrant elements
+const quadrants = document.querySelectorAll('.quadrant');
 
 // Enable/disable add button based on task input
 taskInput.addEventListener('input', () => {
@@ -32,6 +36,67 @@ taskInput.addEventListener('keypress', (e) => {
 
 // Clear completed tasks
 clearCompletedBtn.addEventListener('click', clearCompletedTasks);
+
+// Setup drag and drop for quadrants
+quadrants.forEach(quadrant => {
+    quadrant.addEventListener('dragover', handleDragOver);
+    quadrant.addEventListener('dragleave', handleDragLeave);
+    quadrant.addEventListener('drop', handleDrop);
+});
+
+// Drag and Drop Handlers
+function handleDragOver(e) {
+    e.preventDefault();
+    e.currentTarget.classList.add('drag-over');
+}
+
+function handleDragLeave(e) {
+    e.currentTarget.classList.remove('drag-over');
+}
+
+function handleDrop(e) {
+    e.preventDefault();
+    e.currentTarget.classList.remove('drag-over');
+    
+    const quadrantNum = parseInt(e.currentTarget.dataset.quadrant);
+    
+    if (draggedTask) {
+        // Update task urgency and importance based on quadrant
+        updateTaskByQuadrant(draggedTask, quadrantNum);
+        draggedTask = null;
+        render();
+    }
+}
+
+function updateTaskByQuadrant(taskId, quadrant) {
+    const task = tasks.find(t => t.id === taskId);
+    if (!task) return;
+    
+    switch(quadrant) {
+        case 1: // Urgent & Important
+            task.urgency = 8;
+            task.importance = 8;
+            break;
+        case 2: // Not Urgent & Important
+            task.urgency = 3;
+            task.importance = 8;
+            break;
+        case 3: // Urgent & Not Important
+            task.urgency = 8;
+            task.importance = 3;
+            break;
+        case 4: // Not Urgent & Not Important
+            task.urgency = 3;
+            task.importance = 3;
+            break;
+    }
+}
+
+// Delete task
+function deleteTask(taskId) {
+    tasks = tasks.filter(t => t.id !== taskId);
+    render();
+}
 
 // Add a new task
 function addTask() {
@@ -111,6 +176,18 @@ function render() {
         // Create task list item
         const li = document.createElement('li');
         li.className = `task-item ${task.completed ? 'completed' : ''}`;
+        li.draggable = true;
+        li.dataset.taskId = task.id;
+
+        // Drag events for task list items
+        li.addEventListener('dragstart', (e) => {
+            draggedTask = task.id;
+            e.target.classList.add('dragging');
+        });
+
+        li.addEventListener('dragend', (e) => {
+            e.target.classList.remove('dragging');
+        });
 
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
@@ -156,7 +233,33 @@ function render() {
         const quadrant = getQuadrant(task);
         const taskTag = document.createElement('div');
         taskTag.className = 'task-tag';
-        taskTag.textContent = task.text;
+        taskTag.draggable = true;
+        taskTag.dataset.taskId = task.id;
+        
+        // Task text
+        const taskTagText = document.createElement('span');
+        taskTagText.textContent = task.text;
+        taskTag.appendChild(taskTagText);
+
+        // Delete button
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'task-delete';
+        deleteBtn.innerHTML = '×';
+        deleteBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            deleteTask(task.id);
+        });
+        taskTag.appendChild(deleteBtn);
+
+        // Drag events for task tags
+        taskTag.addEventListener('dragstart', (e) => {
+            draggedTask = task.id;
+            e.target.classList.add('dragging');
+        });
+
+        taskTag.addEventListener('dragend', (e) => {
+            e.target.classList.remove('dragging');
+        });
 
         switch(quadrant) {
             case 1:
