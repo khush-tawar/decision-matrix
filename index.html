@@ -13,11 +13,35 @@
     <div class="background-blob"></div>
     
     <div class="container">
-        <!-- Header -->
-        <header>
-            <h1>Priority Matrix</h1>
-            <p class="quote">"The key is not to prioritize what's on your schedule, but to schedule your priorities."</p>
-        </header>
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <!-- Header Left -->
+            <div class="header-left">
+                <h1>Priority Matrix</h1>
+                <p class="quote" id="motivationalQuote">"The key is not to prioritize what's on your schedule, but to schedule your priorities."</p>
+            </div>
+
+            <!-- Music Player Right -->
+            <div class="music-player">
+                <div class="player-info">
+                    <div class="album-art">🎵</div>
+                    <div class="track-info">
+                        <div class="track-title" id="trackTitle">Motivational Radio</div>
+                        <div class="track-artist" id="trackArtist">Focus Beats</div>
+                    </div>
+                </div>
+                <div class="player-controls">
+                    <button class="control-btn" id="prevBtn" title="Previous">⏮</button>
+                    <button class="control-btn play-btn" id="playBtn" title="Play/Pause">▶</button>
+                    <button class="control-btn" id="nextBtn" title="Next">⏭</button>
+                    <button class="control-btn" id="shuffleBtn" title="Shuffle">🔀</button>
+                </div>
+                <div class="volume-control">
+                    <span class="volume-icon">🔊</span>
+                    <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="50">
+                </div>
+            </div>
+        </div>
 
         <!-- Main Layout -->
         <div class="main-layout">

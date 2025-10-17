@@ -19,6 +19,122 @@ const q4Tasks = document.getElementById('q4-tasks');
 // All quadrant elements
 const quadrants = document.querySelectorAll('.quadrant');
 
+// Music Player Elements
+const playBtn = document.getElementById('playBtn');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const shuffleBtn = document.getElementById('shuffleBtn');
+const volumeSlider = document.getElementById('volumeSlider');
+const trackTitle = document.getElementById('trackTitle');
+const trackArtist = document.getElementById('trackArtist');
+const quoteElement = document.getElementById('motivationalQuote');
+
+// Motivational Quotes
+const quotes = [
+    "Stop waiting for perfect. Perfect is boring. Start now, improve later.",
+    "You can't win the race if you're still sitting in the parking lot.",
+    "Excuses are the nails used to build a house of failure.",
+    "Dream big. Start small. Act now.",
+    "The best time to start was yesterday. The second best time is now.",
+    "Your comfort zone is a beautiful place, but nothing grows there.",
+    "Don't count the days, make the days count.",
+    "Success is the sum of small efforts repeated daily.",
+    "The only way to do great work is to do work.",
+    "Stop overthinking and start overworking.",
+    "Discipline is choosing between what you want now and what you want most.",
+    "Winners focus on winning. Losers focus on winners.",
+    "The grind includes weekends.",
+    "Hustle until your haters ask if you're hiring.",
+    "Sacrifice now, shine later.",
+    "Work hard in silence, let success make the noise.",
+    "Don't stop when you're tired. Stop when you're done.",
+    "Your excuses are just the lies you tell yourself."
+];
+
+// Motivational Rap Tracks
+const tracks = [
+    { title: "Started From The Bottom", artist: "Drake" },
+    { title: "Lose Yourself", artist: "Eminem" },
+    { title: "Till I Collapse", artist: "Eminem" },
+    { title: "Can't Tell Me Nothing", artist: "Kanye West" },
+    { title: "HUMBLE.", artist: "Kendrick Lamar" },
+    { title: "All I Do Is Win", artist: "DJ Khaled" },
+    { title: "Money Longer", artist: "Lil Uzi Vert" },
+    { title: "Going Bad", artist: "Meek Mill ft. Drake" },
+    { title: "No Role Modelz", artist: "J. Cole" },
+    { title: "The Box", artist: "Roddy Ricch" },
+    { title: "Sicko Mode", artist: "Travis Scott" },
+    { title: "God's Plan", artist: "Drake" },
+    { title: "Congratulations", artist: "Post Malone" },
+    { title: "Rockstar", artist: "Post Malone ft. 21 Savage" },
+    { title: "Power", artist: "Kanye West" }
+];
+
+let currentTrackIndex = 0;
+let isPlaying = false;
+let isShuffleOn = false;
+
+// Music Player Functions
+function updateTrackDisplay() {
+    const track = tracks[currentTrackIndex];
+    trackTitle.textContent = track.title;
+    trackArtist.textContent = track.artist;
+}
+
+function togglePlay() {
+    isPlaying = !isPlaying;
+    playBtn.textContent = isPlaying ? '⏸' : '▶';
+    if (isPlaying) {
+        playBtn.style.transform = 'scale(1.1)';
+    } else {
+        playBtn.style.transform = 'scale(1)';
+    }
+}
+
+function nextTrack() {
+    if (isShuffleOn) {
+        currentTrackIndex = Math.floor(Math.random() * tracks.length);
+    } else {
+        currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+    }
+    updateTrackDisplay();
+}
+
+function prevTrack() {
+    currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
+    updateTrackDisplay();
+}
+
+function toggleShuffle() {
+    isShuffleOn = !isShuffleOn;
+    shuffleBtn.style.background = isShuffleOn ? 'rgba(255, 102, 0, 0.4)' : 'rgba(255, 102, 0, 0.2)';
+    shuffleBtn.style.transform = isShuffleOn ? 'scale(1.1)' : 'scale(1)';
+}
+
+function updateVolume() {
+    // In a real implementation, this would control actual audio
+    console.log('Volume:', volumeSlider.value);
+}
+
+function changeQuote() {
+    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+    quoteElement.style.opacity = '0';
+    setTimeout(() => {
+        quoteElement.textContent = `"${randomQuote}"`;
+        quoteElement.style.opacity = '1';
+    }, 300);
+}
+
+// Music Player Event Listeners
+playBtn.addEventListener('click', togglePlay);
+nextBtn.addEventListener('click', nextTrack);
+prevBtn.addEventListener('click', prevTrack);
+shuffleBtn.addEventListener('click', toggleShuffle);
+volumeSlider.addEventListener('input', updateVolume);
+
+// Initialize music player
+updateTrackDisplay();
+
 // Enable/disable add button based on task input
 taskInput.addEventListener('input', () => {
     addTaskBtn.disabled = taskInput.value.trim() === '';
@@ -146,7 +262,14 @@ function getQuadrant(task) {
 function toggleTask(taskId) {
     const task = tasks.find(t => t.id === taskId);
     if (task) {
+        const wasCompleted = task.completed;
         task.completed = !task.completed;
+        
+        // Change quote when task is completed
+        if (!wasCompleted && task.completed) {
+            changeQuote();
+        }
+        
         render();
     }
 }
