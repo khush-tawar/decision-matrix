@@ -84,7 +84,7 @@ h1 {
 
 /* Music Player */
 .music-player {
-    background: rgba(26, 26, 26, 0.95);
+    background: rgba(26, 26, 26, 0.04);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 102, 0, 0.3);
     border-radius: 24px;
@@ -230,7 +230,7 @@ h2 {
 }
 
 .panel-card {
-    background: rgba(26, 26, 26, 0.95);
+    background: rgba(26, 26, 26, 0.04);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 102, 0, 0.3);
@@ -250,26 +250,26 @@ h2 {
 .task-input {
     width: 100%;
     padding: 16px 20px;
-    background: #0f0f0f;
+    background: #ffffff;
     border: 2px solid rgba(255, 102, 0, 0.3);
     border-radius: 16px;
-    color: #ffffff;
+    color: #1a1a1a;
     font-size: 1rem;
     font-family: 'Montserrat', sans-serif;
     margin-bottom: 20px;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .task-input:focus {
     outline: none;
     border-color: #ff6600;
-    background: #0f0f0f;
-    box-shadow: 0 4px 20px rgba(255, 102, 0, 0.4);
+    background: #ffffff;
+    box-shadow: 0 4px 20px rgba(255, 102, 0, 0.3);
 }
 
 .task-input::placeholder {
-    color: #666;
+    color: #999;
 }
 
 .scoring-inputs {
@@ -294,22 +294,22 @@ h2 {
 .score-input {
     width: 100%;
     padding: 14px 18px;
-    background: #0f0f0f;
+    background: #ffffff;
     border: 2px solid rgba(255, 102, 0, 0.3);
     border-radius: 16px;
-    color: #ffffff;
+    color: #1a1a1a;
     font-size: 1rem;
     font-weight: 600;
     font-family: 'Montserrat', sans-serif;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .score-input:focus {
     outline: none;
     border-color: #ff6600;
-    background: #0f0f0f;
-    box-shadow: 0 4px 20px rgba(255, 102, 0, 0.4);
+    background: #ffffff;
+    box-shadow: 0 4px 20px rgba(255, 102, 0, 0.3);
 }
 
 .add-task-btn {
@@ -360,7 +360,7 @@ h2 {
 }
 
 .quadrant {
-    background: #151515;
+    background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(10px);
     border: 2px solid rgba(255, 102, 0, 0.2);
     border-radius: 24px;
@@ -368,50 +368,50 @@ h2 {
     min-height: 280px;
     transition: all 0.3s ease;
     position: relative;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
 }
 
 .quadrant.drag-over {
-    background: rgba(255, 102, 0, 0.15);
+    background: rgba(255, 102, 0, 0.2);
     border-color: #ff6600;
     transform: scale(1.02);
-    box-shadow: 0 12px 40px rgba(255, 102, 0, 0.4);
+    box-shadow: 0 12px 40px rgba(255, 102, 0, 0.3);
 }
 
 .q1 {
-    background: linear-gradient(135deg, #1a0f0f 0%, #2a1515 100%);
+    background: linear-gradient(135deg, rgba(255, 240, 240, 0.9) 0%, rgba(255, 230, 230, 0.9) 100%);
     border-color: rgba(255, 68, 68, 0.4);
 }
 
 .q2 {
-    background: linear-gradient(135deg, #0f1419 0%, #15202b 100%);
+    background: linear-gradient(135deg, rgba(240, 248, 255, 0.9) 0%, rgba(230, 242, 255, 0.9) 100%);
     border-color: rgba(59, 130, 246, 0.4);
 }
 
 .q3 {
-    background: linear-gradient(135deg, #1a1210 0%, #2a1f15 100%);
+    background: linear-gradient(135deg, rgba(255, 248, 240, 0.9) 0%, rgba(255, 242, 230, 0.9) 100%);
     border-color: rgba(255, 138, 0, 0.4);
 }
 
 .q4 {
-    background: linear-gradient(135deg, #141414 0%, #1f1f1f 100%);
+    background: linear-gradient(135deg, rgba(250, 250, 250, 0.9) 0%, rgba(245, 245, 245, 0.9) 100%);
     border-color: rgba(107, 114, 128, 0.4);
 }
 
 .quadrant-header h3 {
     font-size: 1.1rem;
     font-weight: 700;
-    color: #ffffff;
+    color: #1a1a1a;
     margin-bottom: 4px;
 }
 
 .quadrant-header p {
     font-size: 0.8rem;
     font-weight: 400;
-    color: #aaa;
+    color: #666;
     margin-bottom: 16px;
     padding-bottom: 12px;
-    border-bottom: 1px solid rgba(255, 102, 0, 0.2);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .quadrant-tasks {
@@ -422,14 +422,14 @@ h2 {
 }
 
 .task-tag {
-    background: #e8e8e8;
-    color: #0a0a0a;
+    background: #ffffff;
+    color: #1a1a1a;
     padding: 14px 18px;
     border-radius: 16px;
     font-size: 0.875rem;
     font-weight: 500;
-    border: none;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     cursor: move;
     transition: all 0.2s ease;
     position: relative;
@@ -438,8 +438,9 @@ h2 {
 
 .task-tag:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 25px rgba(255, 102, 0, 0.4);
-    background: #f5f5f5;
+    box-shadow: 0 6px 25px rgba(255, 102, 0, 0.3);
+    background: #fff9f0;
+    border-color: rgba(255, 102, 0, 0.3);
 }
 
 .task-tag:hover .task-delete {
@@ -457,9 +458,9 @@ h2 {
     right: 10px;
     width: 24px;
     height: 24px;
-    background: #0a0a0a;
-    color: #ff6600;
-    border: 1px solid #ff6600;
+    background: #ffffff;
+    color: #ff4444;
+    border: 1px solid #ff4444;
     border-radius: 50%;
     font-size: 16px;
     line-height: 1;
@@ -472,8 +473,8 @@ h2 {
 }
 
 .task-delete:hover {
-    background: #ff6600;
-    color: #0a0a0a;
+    background: #ff4444;
+    color: #ffffff;
     transform: scale(1.15);
 }
 
@@ -495,15 +496,15 @@ h2 {
     content: 'No tasks yet. Add one to get started!';
     display: block;
     text-align: center;
-    color: #666;
+    color: #999;
     padding: 40px 20px;
     font-style: italic;
 }
 
 .task-item {
-    background: #0f0f0f;
+    background: #ffffff;
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 102, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 16px;
     padding: 16px 18px;
     display: flex;
@@ -513,14 +514,14 @@ h2 {
     transition: all 0.2s ease;
     cursor: move;
     user-select: none;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
 .task-item:hover {
-    background: #151515;
-    box-shadow: 0 6px 25px rgba(255, 102, 0, 0.3);
+    background: #fff9f0;
+    box-shadow: 0 6px 25px rgba(255, 102, 0, 0.2);
     transform: translateX(4px);
-    border-color: rgba(255, 102, 0, 0.5);
+    border-color: rgba(255, 102, 0, 0.4);
 }
 
 @keyframes slideIn {
@@ -564,7 +565,7 @@ h2 {
 
 .task-text {
     font-size: 0.95rem;
-    color: #ffffff;
+    color: #1a1a1a;
     font-weight: 500;
 }
 
@@ -630,7 +631,7 @@ h2 {
     align-items: center;
     justify-content: center;
     height: 100%;
-    color: #555;
+    color: #999;
     font-size: 0.875rem;
     font-style: italic;
 }

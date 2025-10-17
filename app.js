@@ -51,42 +51,55 @@ const quotes = [
     "Your excuses are just the lies you tell yourself."
 ];
 
-// Motivational Rap Tracks
+// Motivational Rap Tracks with public audio URLs
 const tracks = [
-    { title: "Started From The Bottom", artist: "Drake" },
-    { title: "Lose Yourself", artist: "Eminem" },
-    { title: "Till I Collapse", artist: "Eminem" },
-    { title: "Can't Tell Me Nothing", artist: "Kanye West" },
-    { title: "HUMBLE.", artist: "Kendrick Lamar" },
-    { title: "All I Do Is Win", artist: "DJ Khaled" },
-    { title: "Money Longer", artist: "Lil Uzi Vert" },
-    { title: "Going Bad", artist: "Meek Mill ft. Drake" },
-    { title: "No Role Modelz", artist: "J. Cole" },
-    { title: "The Box", artist: "Roddy Ricch" },
-    { title: "Sicko Mode", artist: "Travis Scott" },
-    { title: "God's Plan", artist: "Drake" },
-    { title: "Congratulations", artist: "Post Malone" },
-    { title: "Rockstar", artist: "Post Malone ft. 21 Savage" },
-    { title: "Power", artist: "Kanye West" }
+    { title: "Epic Motivational Beat 1", artist: "Focus Music", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
+    { title: "Hustle Mode", artist: "Motivation Mix", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
+    { title: "Boss Energy", artist: "Power Beats", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" },
+    { title: "Grind Time", artist: "Success Sound", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" },
+    { title: "Victory Lap", artist: "Champion Mix", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3" },
+    { title: "No Sleep", artist: "Work Hard", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3" },
+    { title: "Rise & Grind", artist: "Morning Motivation", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3" },
+    { title: "Beast Mode", artist: "Gym Motivation", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" },
+    { title: "Never Stop", artist: "Relentless", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3" },
+    { title: "Success Story", artist: "Winning", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3" }
 ];
 
 let currentTrackIndex = 0;
 let isPlaying = false;
 let isShuffleOn = false;
+let audioPlayer = null;
 
 // Music Player Functions
 function updateTrackDisplay() {
     const track = tracks[currentTrackIndex];
     trackTitle.textContent = track.title;
     trackArtist.textContent = track.artist;
+    
+    // Load the audio
+    if (audioPlayer) {
+        audioPlayer.src = track.url;
+        if (isPlaying) {
+            audioPlayer.play().catch(err => console.log('Audio play failed:', err));
+        }
+    }
 }
 
 function togglePlay() {
+    if (!audioPlayer) return;
+    
     isPlaying = !isPlaying;
     playBtn.textContent = isPlaying ? '⏸' : '▶';
+    
     if (isPlaying) {
+        audioPlayer.play().catch(err => {
+            console.log('Audio play failed:', err);
+            isPlaying = false;
+            playBtn.textContent = '▶';
+        });
         playBtn.style.transform = 'scale(1.1)';
     } else {
+        audioPlayer.pause();
         playBtn.style.transform = 'scale(1)';
     }
 }
@@ -112,8 +125,9 @@ function toggleShuffle() {
 }
 
 function updateVolume() {
-    // In a real implementation, this would control actual audio
-    console.log('Volume:', volumeSlider.value);
+    if (audioPlayer) {
+        audioPlayer.volume = volumeSlider.value / 100;
+    }
 }
 
 function changeQuote() {
@@ -133,7 +147,25 @@ shuffleBtn.addEventListener('click', toggleShuffle);
 volumeSlider.addEventListener('input', updateVolume);
 
 // Initialize music player
-updateTrackDisplay();
+document.addEventListener('DOMContentLoaded', () => {
+    audioPlayer = document.getElementById('audioPlayer');
+    if (audioPlayer) {
+        audioPlayer.volume = 0.7;
+        
+        // Auto-next when track ends
+        audioPlayer.addEventListener('ended', () => {
+            nextTrack();
+        });
+        
+        // Handle audio errors
+        audioPlayer.addEventListener('error', (e) => {
+            console.log('Audio error:', e);
+            // Try next track on error
+            nextTrack();
+        });
+    }
+    updateTrackDisplay();
+});
 
 // Enable/disable add button based on task input
 taskInput.addEventListener('input', () => {
